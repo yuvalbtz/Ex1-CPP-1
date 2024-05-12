@@ -1,29 +1,93 @@
-# מטלה 1 - גרפים (Classes and Namespaces)
+# Explanation of Makefile Content
 
-המטרה שלכם במטלה הזאת היא ליצור מחלקה שמייצגת גרף ולממש אלגוריתמים על הגרפים (זה הזמן להזכר בקורס אלגוריתמים 1).
+## Variables
+- `CXX`: Specifies the C++ compiler as `clang++`.
+- `CXXFLAGS`: Compiler flags for C++ code, including `-std=c++11`, `-Werror` (treats warnings as errors), and `-Wsign-conversion` (warns about implicit conversions that may change the sign of a value).
+- `VALGRIND_FLAGS`: Flags for running `valgrind` memory analysis.
 
-במטלה הזאת הייצוג של הגרף שלכם יתבצע בעזרת מטריצת שכנויות - https://he.wikipedia.org/wiki/%D7%9E%D7%98%D7%A8%D7%99%D7%A6%D7%AA_%D7%A9%D7%9B%D7%A0%D7%95%D7%AA.
+## Source Files
+- `SOURCES`: List of source files including `Graph.cpp`, `Algorithms.cpp`, `TestCounter.cpp`, and `Test.cpp`.
+- `OBJECTS`: List of object files derived from source files by replacing `.cpp` with `.o`.
 
-הגרף יכול להיות גרף מכוון ולא מכוון וגם גרף ממושקל. מטריצת השכנויות חייבת להיות מטריצה ריבועית.
+## Targets
+- `run`: Executes both `demo` and `test`.
+- `demo`: Compiles and links `Demo.o` and other object files (excluding `TestCounter.o` and `Test.o`) into an executable named `demo`.
+- `test`: Compiles and links `TestCounter.o` and `Test.o` and other object files (excluding `Demo.o`) into an executable named `test`.
+- `tidy`: Runs `clang-tidy` on source files with specific checks, treating warnings as errors.
+- `valgrind`: Runs `valgrind` on both `demo` and `test` executables, checking for memory leaks.
 
-עליכם לכתוב את הקבצים הבאים:
+## Pattern Rule
+- `%.o: %.cpp`: Compiles each `.cpp` file into an object file.
 
-```
-Graph.cpp
-Algorithms.cpp
-```
+## Clean Target
+- `clean`: Removes object files (`*.o`), `demo`, and `test` executables.
 
-הקובץ `Graph.cpp` מכיל מחלקה המייצגת גרף.
-המחלקה מכילה את הפעולות `loadGraph` המקבלת מטריצת שכנויות וטוענת אותה לתוך הגרף ו-`printGraph` שמדפיסה את הייצוג של הגרף (הפורמט לבחירתכם, ראו דוגמה ב-`Demo.cpp`).
 
-הקובץ `Algorithms.cpp` מכיל מימושים לאלגוריתמים על גרפים. ביניהם:
+# Graph Algorithms Library
 
-- `isConnected(g)` - האלגוריתם מקבל גרף ומחזיר 1 אם הגרף קשיר (אחרת מחזיר 0).
-- `shortestPath(g,start,end)` - האלגוריתם מקבל גרף, קודקוד התחלה וקודקוד סיום ומחזיר את המסלול הקל ביותר (במקרה שהגרף לא ממושקל - הקצר ביותר) בין שני הקודקודים. במידה ואין מסלול כזה, האלגוריתם יחזיר -1.
-- `isContainsCycle(g)` - האלגוריתם מקבל גרף ומדפיס מעגל כלשהו. אם לא קיים מעגל בגרף, האלגוריתם יחזיר 0.
-- `isBipartite(g)` - האלגוריתם מקבל גרף ומחזיר את החלוקה של הגרף לגרף דו-צדדי. אם אי אפשר לחלק את הגרף, האלגוריתם יחזיר 0.
-- `negativeCycle(g)` - האלגוריתם מקבל גרף ומוצא מעגל שלילי (כלומר מעגל שסכום המשקלים של הצלעות שלילי). אם לא קיים מעגל כזה, האלגוריתם ידפיס שלא קיים מעגל שלילי.
+This is a C++ library for performing various graph algorithms. It includes implementations for algorithms such as checking if a graph is connected, finding the shortest path between two vertices, detecting cycles in a graph, determining if a graph is bipartite, and finding negative cycles in a weighted graph.
 
-הקובץ `Demo.cpp` מכיל דוגמאות של קלטים ופלטים.
-עליכם לכתוב בתחילת כל קובץ את מספר תעודת הזהות שלכם ואת המייל. כמו כן, בנוסף לקבצים של המטלה אתם נדרשים להגיש גם קובץ README המתאר את אופן המימוש ואת החלוקה שביצעתם בקוד (סוג של מדריך משתמש). אי עמידה בהנחיות תגרור הפחתה בציון. בהצלחה!
-  
+## Overview
+
+The library consists of several files:
+
+- `Algorithms.cpp` and `Algorithms.hpp`: Implementations of various graph algorithms.
+- `Graph.cpp` and `Graph.hpp`: Implementation of the Graph class used to represent a graph.
+- `Demo.cpp`: A demonstration of how to use the library to perform graph operations.
+- `testCounter.cpp`: A test runner to ensure a minimum number of tests are written.
+
+## Files
+
+### Algorithms.cpp and Algorithms.hpp
+
+These files contain the implementation of various graph algorithms, including:
+
+- `isConnected`: Checks if the graph is connected.
+- `shortestPath`: Finds the shortest path between two vertices in the graph.
+- `isContainsCycle`: Checks if the graph contains a cycle.
+- `isBipartite`: Checks if the graph is bipartite.
+- `negativeCycle`: Finds a negative cycle in the graph.
+
+### Graph.cpp and Graph.hpp
+
+These files contain the implementation of the `Graph` class, which represents a graph using an adjacency matrix.
+
+- `loadGraph`: Loads a graph from a given adjacency matrix.
+- `printGraph`: Prints information about the graph, including the number of vertices and edges.
+- `getMatrix`: Returns the adjacency matrix of the graph.
+
+### Demo.cpp
+
+This file demonstrates how to use the graph algorithms library to perform various operations on graphs.
+
+### testCounter.cpp
+
+This file contains a test runner to ensure that a minimum number of tests are written for the library.
+
+## Usage
+
+To use the library, include the necessary header files (`Algorithms.hpp` and `Graph.hpp`) in your C++ project and link against the implementation files (`Algorithms.cpp` and `Graph.cpp`).
+
+```cpp
+#include "Algorithms.hpp"
+#include "Graph.hpp"
+#include <iostream>
+
+int main() {
+    // Create a graph
+    ariel::Graph g;
+
+    // Load graph data
+    std::vector<std::vector<int>> graphData = {
+        {0, 1, 0},
+        {1, 0, 1},
+        {0, 1, 0}
+    };
+    g.loadGraph(graphData);
+
+    // Use graph algorithms
+    std::cout << "Is connected: " << ariel::Algorithms::isConnected(g) << std::endl;
+    // Perform other operations...
+
+    return 0;
+}
