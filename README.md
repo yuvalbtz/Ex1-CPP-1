@@ -1,28 +1,3 @@
-# Explanation of Makefile Content
-
-## Variables
-- `CXX`: Specifies the C++ compiler as `clang++`.
-- `CXXFLAGS`: Compiler flags for C++ code, including `-std=c++11`, `-Werror` (treats warnings as errors), and `-Wsign-conversion` (warns about implicit conversions that may change the sign of a value).
-- `VALGRIND_FLAGS`: Flags for running `valgrind` memory analysis.
-
-## Source Files
-- `SOURCES`: List of source files including `Graph.cpp`, `Algorithms.cpp`, `TestCounter.cpp`, and `Test.cpp`.
-- `OBJECTS`: List of object files derived from source files by replacing `.cpp` with `.o`.
-
-## Targets
-- `run`: Executes both `demo` and `test`.
-- `demo`: Compiles and links `Demo.o` and other object files (excluding `TestCounter.o` and `Test.o`) into an executable named `demo`.
-- `test`: Compiles and links `TestCounter.o` and `Test.o` and other object files (excluding `Demo.o`) into an executable named `test`.
-- `tidy`: Runs `clang-tidy` on source files with specific checks, treating warnings as errors.
-- `valgrind`: Runs `valgrind` on both `demo` and `test` executables, checking for memory leaks.
-
-## Pattern Rule
-- `%.o: %.cpp`: Compiles each `.cpp` file into an object file.
-
-## Clean Target
-- `clean`: Removes object files (`*.o`), `demo`, and `test` executables.
-
-
 # Graph Algorithms Library
 
 This is a C++ library for performing various graph algorithms. It includes implementations for algorithms such as checking if a graph is connected, finding the shortest path between two vertices, detecting cycles in a graph, determining if a graph is bipartite, and finding negative cycles in a weighted graph.
@@ -91,3 +66,28 @@ int main() {
 
     return 0;
 }
+
+
+# Explanation of Makefile Content
+
+## Variables
+- `CXX`: Specifies the C++ compiler as `clang++`.
+- `CXXFLAGS`: Compiler flags for C++ code, including `-std=c++11`, `-Werror` (treats warnings as errors), and `-Wsign-conversion` (warns about implicit conversions that may change the sign of a value).
+- `VALGRIND_FLAGS`: Flags for running `valgrind` memory analysis.
+
+## Source Files
+- `SOURCES`: List of source files including `Graph.cpp`, `Algorithms.cpp`, `TestCounter.cpp`, and `Test.cpp`.
+- `OBJECTS`: List of object files derived from source files by replacing `.cpp` with `.o`.
+
+## Targets
+- `run`: Executes both `demo` and `test`.
+- `demo`: Compiles and links `Demo.o` and other object files (excluding `TestCounter.o` and `Test.o`) into an executable named `demo`.
+- `test`: Compiles and links `TestCounter.o` and `Test.o` and other object files (excluding `Demo.o`) into an executable named `test`.
+- `tidy`: Runs `clang-tidy` on source files with specific checks, treating warnings as errors.
+- `valgrind`: Runs `valgrind` on both `demo` and `test` executables, checking for memory leaks.
+
+## Pattern Rule
+- `%.o: %.cpp`: Compiles each `.cpp` file into an object file.
+
+## Clean Target
+- `clean`: Removes object files (`*.o`), `demo`, and `test` executables.
